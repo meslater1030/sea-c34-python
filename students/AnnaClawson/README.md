@@ -1,0 +1,5 @@
+## Anna Clawson
+
+Hello world, my name is Anna! I am a linguist and a medical translator. I have always been interested in learning programming since I had written my first baby programs in Basic when I was 7 years old. Working with endangered languages like Aleut involves many steps for collecting and processing language data, and in the course of this work I have used many software tools, and occasionally tweaked or fixed them. 
+
+I have been invoved in developing audio components for an Aleut language course. That and my experience with learning foreign languages have inspired me to think about developing language learning software that goes beyond what is currently offered by well-known brands such as Rosetta Stone. Developing engaging language learning software with a lot of depth is one of my dreams and one of the things that inspires me to learn programming. I am also interested in learning Python tools for natural language processing and doing analysis of text corpora. 
