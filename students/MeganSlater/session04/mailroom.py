@@ -2,7 +2,8 @@ donors = {"Donor Full Name": [amount donated, second amount donated]}
 
 
 def thankyous():
-    userprompt = raw_input("Choose Send a Thank You or Create a Report. ").lower()
+    userprompt = raw_input("Choose Send a Thank You or Create a Report. ")
+    userprompt = userprompt.lower()
 
     if userprompt == "Send a Thank You":
         donorname = ""
@@ -16,8 +17,8 @@ def thankyous():
 
         for name, donation in donors:
             if donorname != "name":
-               donors["name"] = 0
-               thankyous()
+                donors["name"] = 0
+                thankyous()
             else:
                 amount = ""
                 while amount.isdigit() == False:
@@ -25,7 +26,6 @@ def thankyous():
                     if amount == "quit":
                         thankyous()
                 donors["name"] = amount
-                thankyous()
 
         for name, donation in donors:
             print("""Thank you " + donor + " for your generous donation
@@ -35,9 +35,9 @@ def thankyous():
     elif userprompt == "Create a Report":
         for name, donation in donors:
             donation = donation.sort()
-        Sort the dictionary by total donation value
+#        Sort the dictionary by total donation value
         for name, donation in donors:
-            print("Donor Name, total donated, number of donations, average donation")
+            print("Donor Name, total donated, #of donations, average donation")
         thankyous()
 
     elif userprompt == "quit":
