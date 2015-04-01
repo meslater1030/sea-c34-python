@@ -6,6 +6,7 @@ are in the tuple to begin with?
 """
 
 """
+Commented out because it throws an error.
 def mismatch(args):
     spam, plus, eggs, other = args
     print("I'd like to eat " + spam + " " + plus + " " + eggs + ".")
