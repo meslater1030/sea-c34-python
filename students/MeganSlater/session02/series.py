@@ -1,11 +1,11 @@
 def fibonacci(n):
-    """Define the beginning of the sequence"""
+    # Define the beginning of the sequence
     first = 0
     second = 1
     output = 0
-    """Give a range for the loop"""
+    # Give a range for the loop
     remainder = n - 1
-    """Return the appropriate number in the fibonacci sequence"""
+    # Return the appropriate number in the fibonacci sequence
     if n == 0:
         output = first
     elif n == 1:
@@ -19,13 +19,13 @@ def fibonacci(n):
 
 
 def lucas(n):
-    """Define the beginning of the sequence"""
+    # Define the beginning of the sequence
     first = 2
     second = 1
     output = 0
-    """Give a range for the loop"""
+    # Give a range for the loop
     remainder = n - 1
-    """Return the appropriate number in the lucas sequence"""
+    # Return the appropriate number in the lucas sequence
     if n == 0:
         output = first
     elif n == 1:
@@ -39,10 +39,10 @@ def lucas(n):
 
 
 def sum_series(n, first=0, second=1):
-    """Give a range for the loop"""
+    # Give a range for the loop
     remainder = n - 1
     output = 0
-    """Return the appropriate number in the sequence"""
+    # Return the appropriate number in the sequence
     if n == 0:
         output = first
     elif n == 1:
@@ -55,7 +55,7 @@ def sum_series(n, first=0, second=1):
     return output
 
 if __name__ == "__main__":
-    """check to make sure  each function returns the correct answer"""
+    # check to make sure  each function returns the correct answer
     assert(fibonacci(7) == 13)
     assert(fibonacci(3) == 2)
     assert(lucas(5) == 11)
