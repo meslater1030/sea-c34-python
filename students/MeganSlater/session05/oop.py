@@ -1,15 +1,17 @@
 # Two questions
 
+# Question 1:
 # what is something in the standard library that's object oriented?
 a_string = "My name is Megan."
 # a string is an object that has attributes and methods
 print(a_string.count('a'))  # string has a built in method of count
 print(len(a_string))  # string has a built in function of length
 
-# How can use of object oriented programming help make programs more readable?
-
 
 class Mammal(object):
+    """How can use of object oriented programming help make programs
+    more readable?
+    """
     characteristics = {
      "blood": "warm blooded",
      "lays eggs": False,
