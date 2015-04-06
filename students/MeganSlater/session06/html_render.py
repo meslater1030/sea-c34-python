@@ -7,8 +7,8 @@ class Element(object):
         self.id = id
         self.style = style
         self.output = [u"<%s id='%s' style='%s'>\n"
-                       % (self.tag_name, id, style),
-                       text + "\n", u"</%s>\n" % (self.tag_name)]
+                       % (self.tag_name, self.id, self.style),
+                       self.text + "\n", u"</%s>\n" % (self.tag_name)]
 
     def append(self, tag):
         self.tag = tag
@@ -56,8 +56,8 @@ class Header(OneLineTag):
     def __init__(self, num, text):
         self.num = str(num)
         self.text = text
-        self.output = u"<h%s> %s"\
-                      u"</h%s>\n" % (self.num, self.text, self.num)
+        self.output = [u"<h%s> %s"
+                       u"</h%s>\n" % (self.num, self.text, self.num)]
 
 
 class Body(Element):
