@@ -203,12 +203,12 @@ body.append(hr.Hr())
 
 list = hr.Ul(id=u"TheList", style=u"line-height:200%")
 
-list.append( hr.Li(u"The first item in a list") )
-list.append( hr.Li(u"This is the second item", style="color: red") )
+list.append(hr.Li(u"The first item in a list"))
+list.append(hr.Li(u"This is the second item", style="color: red"))
 
 item = hr.Li()
 item.append(u"And this is a ")
-item.append( hr.A(u"http://google.com", "link") )
+item.append(hr.A(u"http://google.com", "link"))
 item.append(u"to google")
 
 list.append(item)
@@ -217,4 +217,4 @@ body.append(list)
 
 page.append(body)
 
-render(page, u"test_html_output8.html")
+# render(page, u"test_html_output8.html")
