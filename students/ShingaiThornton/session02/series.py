@@ -11,6 +11,7 @@ def fibonacci(n):
    
     """
 
+<<<<<<< HEAD
     A = 0
     B = 1
     Counter = 1
@@ -23,6 +24,20 @@ def fibonacci(n):
         Counter = Counter + 1
         if (Counter + 1) == n:
             return C   
+=======
+        A = 0
+        B = 1
+        Counter = 1
+        C = 0
+    
+        while Counter <= n :
+            C = A + B
+            A = B
+            B = C
+            Counter = Counter + 1
+            if (Counter + 1) == n:
+                return C   
+>>>>>>> eb1fcc6df394b5f849118de20c85ffd597e14653
 
 def lucas(n):
     """
