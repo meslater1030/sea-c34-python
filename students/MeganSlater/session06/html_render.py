@@ -4,11 +4,12 @@ class Element(object):
 
     def __init__(self, text="", **kwargs):
         self.text = text
-        self.attribute_string = " ".join([" " + key + "= '" + value + "'"
+        self.attribute_string = " ".join([" " + key + "='" + value + "'"
                                          for key, value in kwargs.iteritems()])
-        self.output = [u"<%s%s>\n"
-                       % (self.tag_name, self.attribute_string),
-                       self.text + "\n", u"</%s>\n" % (self.tag_name)]
+        self.output = [u"%s<%s%s>\n"
+                       % (self.indent, self.tag_name, self.attribute_string),
+                       self.text + "\n",
+                       u"%s</%s>\n" % (self.indent, self.tag_name)]
 
     def append(self, tag):
         self.tag = tag
@@ -19,24 +20,11 @@ class Element(object):
 
     def render(self, file_out):
         self.file_out = file_out
-        count = 0
-        multiplier = 1
-        while count < len(self.output):
-            interim_list = []
-            for inner_list in self.output:
-                if isinstance(inner_list, list) == True:
-                    for item in inner_list:
-                        if isinstance(item, list) == True:
-                            interim_list.append(item)
-                        else:
-                            map(interim_list.append(self.indent * multiplier +
-                                item), inner_list)
-                else:
-                    interim_list.append(inner_list)
-                    count += 1
-            multiplier += 1
-            self.output = interim_list
-        [self.file_out.write(item) for item in self.output]
+        new_list = [item for inner_list in self.output for item in inner_list]
+        new_list_2 = [item for inner_list in new_list for item in inner_list]
+        new_list_3 = [item for inner_list in new_list_2 for item in inner_list]
+        new_list_3 = "".join(new_list_3)
+        self.file_out.write(new_list_3)
 
 
 class OneLineTag(Element):
@@ -44,13 +32,16 @@ class OneLineTag(Element):
         self.text = text
         self.attribute_string = " ".join([" " + key + "= '" + value + "'"
                                          for key, value in kwargs.iteritems()])
-        self.output = [u"<" + self.tag_name + self.attribute_string + ">" + self.text +
-                       u"</" + self.tag_name + u">\n"]
+        self.output = [u"%s<%s%s>%s</%s>\n" % (self.indent, self.tag_name,
+                       self.attribute_string, self.text, self.tag_name)]
 
 
 class SelfClosingTag(Element):
-    def __init__(self):
-        self.output = [u"<" + self.tag_name + u" />\n"]
+    def __init__(self, **kwargs):
+        self.attribute_string = " ".join([" " + key + "='" + value + "'"
+                                         for key, value in kwargs.iteritems()])
+        self.output = [u'%s<%s%s/>\n' % (self.indent,
+                                         self.tag_name, self.attribute_string)]
 
 
 class Html(Element):
@@ -68,29 +59,34 @@ class Body(Element):
 
 
 class H(OneLineTag):
+    indent = "        "
+
     def __init__(self, num, text):
         self.num = str(num)
         self.text = text
-        self.output = [u"<h%s> %s"
-                       u"</h%s>\n" % (self.num, self.text, self.num)]
+        self.output = [u"%s<h%s> %s"
+                       u"</h%s>\n" % (self.indent, self.num, self.text,
+                                      self.num)]
 
 
-class P(Element):
+class P(OneLineTag):
     tag_name = "p"
+    indent = "        "
 
 
 class Title(OneLineTag):
     tag_name = "title"
+    indent = "        "
 
 
 class Meta(SelfClosingTag):
-    def __init__(self, charset=""):
-        self.charset = charset
-        self.output = u'<meta charset="%s"/>\n' % (self.charset)
+    tag_name = "meta"
+    indent = "        "
 
 
 class Hr(SelfClosingTag):
     tag_name = "hr"
+    indent = "        "
 
 
 class A(Element):
@@ -102,18 +98,20 @@ class A(Element):
 
 class Ul(Element):
     tag_name = "ul"
+    indent = "        "
 
 
 class Li(OneLineTag):
     tag_name = "li"
+    indent = "            "
 
     def append(self, tag):
         self.tag = tag
         try:
             self.text = self.text + self.tag
-            self.output = [u"<" + self.tag_name + self.attribute_string + ">" + self.text +
-                       u"</" + self.tag_name + u">\n"]
+            self.output = [u"<%s%s>%s</%s>\n" % (self.tag_name,
+                           self.attribute_string, self.text, self.tag_name)]
         except:
             self.text = self.text + self.tag.output
-            self.output = [u"<" + self.tag_name + self.attribute_string + ">" + self.text +
-                       u"</" + self.tag_name + u">\n"]
+            self.output = [u"%s<%s%s>%s</%s>\n" % (self.indent, self.tag_name,
+                           self.attribute_string, self.text, self.tag_name)]
