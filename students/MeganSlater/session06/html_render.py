@@ -2,12 +2,12 @@ class Element(object):
     indent = "    "
     tag_name = "html"
 
-    def __init__(self, text="", id="", style=""):
+    def __init__(self, text="", **kwargs):
         self.text = text
-        self.id = id
-        self.style = style
-        self.output = [u"<%s id='%s' style='%s'>\n"
-                       % (self.tag_name, self.id, self.style),
+        self.attribute_string = " ".join([" " + key + "= '" + value + "'"
+                                         for key, value in kwargs.iteritems()])
+        self.output = [u"<%s%s>\n"
+                       % (self.tag_name, self.attribute_string),
                        self.text + "\n", u"</%s>\n" % (self.tag_name)]
 
     def append(self, tag):
@@ -40,32 +40,17 @@ class Element(object):
 
 
 class OneLineTag(Element):
-    def __init__(self, text="", style=""):
-        self.style = style
+    def __init__(self, text="", **kwargs):
         self.text = text
-        self.output = [u"<" + self.tag_name + " style='" + style + "'>" + text +
+        self.attribute_string = " ".join([" " + key + "= '" + value + "'"
+                                         for key, value in kwargs.iteritems()])
+        self.output = [u"<" + self.tag_name + self.attribute_string + ">" + self.text +
                        u"</" + self.tag_name + u">\n"]
 
 
 class SelfClosingTag(Element):
     def __init__(self):
         self.output = [u"<" + self.tag_name + u" />\n"]
-
-
-class Header(OneLineTag):
-    def __init__(self, num, text):
-        self.num = str(num)
-        self.text = text
-        self.output = [u"<h%s> %s"
-                       u"</h%s>\n" % (self.num, self.text, self.num)]
-
-
-class Body(Element):
-    tag_name = "body"
-
-
-class P(Element):
-    tag_name = "p"
 
 
 class Html(Element):
@@ -76,6 +61,22 @@ class Html(Element):
 
 class Head(Element):
     tag_name = "head"
+
+
+class Body(Element):
+    tag_name = "body"
+
+
+class H(OneLineTag):
+    def __init__(self, num, text):
+        self.num = str(num)
+        self.text = text
+        self.output = [u"<h%s> %s"
+                       u"</h%s>\n" % (self.num, self.text, self.num)]
+
+
+class P(Element):
+    tag_name = "p"
 
 
 class Title(OneLineTag):
@@ -99,10 +100,6 @@ class A(Element):
         self.output = u'<a href="%s">%s</a> ' % (self.url, self.text)
 
 
-class H(Header):
-    pass
-
-
 class Ul(Element):
     tag_name = "ul"
 
@@ -114,9 +111,9 @@ class Li(OneLineTag):
         self.tag = tag
         try:
             self.text = self.text + self.tag
-            self.output = [u"<" + self.tag_name + " style='" + self.style + "'>" + self.text +
+            self.output = [u"<" + self.tag_name + self.attribute_string + ">" + self.text +
                        u"</" + self.tag_name + u">\n"]
         except:
             self.text = self.text + self.tag.output
-            self.output = [u"<" + self.tag_name + " style='" + self.style + "'>" + self.text +
+            self.output = [u"<" + self.tag_name + self.attribute_string + ">" + self.text +
                        u"</" + self.tag_name + u">\n"]
