@@ -6,7 +6,7 @@ class Element(object):
         if text == "":
             self.text = ""
         else:
-            self.text = self.indent + text + "\n"
+            self.text = self.indent + "    " + text + "\n"
         self.attribute_string = " ".join([" " + key + "='" + value + "'"
                                          for key, value in kwargs.iteritems()])
         self.output = [u"%s<%s%s>\n"
@@ -79,15 +79,6 @@ class P(Element):
     tag_name = "p"
     indent = "        "
 
-    def __init__(self, text="", **kwargs):
-        self.text = self.indent + text + "\n"
-        self.attribute_string = " ".join([" " + key + "='" + value + "'"
-                                         for key, value in kwargs.iteritems()])
-        self.output = [u"%s<%s%s>\n"
-                       % (self.indent, self.tag_name, self.attribute_string),
-                       "    " + self.text,
-                       u"%s</%s>\n" % (self.indent, self.tag_name)]
-
 
 class Title(OneLineTag):
     tag_name = "title"
@@ -119,7 +110,7 @@ class Ul(Element):
     indent = "        "
 
 
-class Li(OneLineTag):
+class Li(Element):
     tag_name = "li"
     indent = "            "
 
@@ -127,9 +118,9 @@ class Li(OneLineTag):
         self.tag = tag
         try:
             self.text = self.text + self.tag
-            self.output = u"%s<%s>%s</%s>\n" % (
-                self.indent, self.tag_name, self.text,
-                self.tag_name)
+            self.output = u"%s<%s>\n%s    %s\n%s</%s>\n" % (
+                self.indent, self.tag_name, self.indent, self.text,
+                self.indent, self.tag_name)
         except:
             self.text = self.text + self.tag.output
             self.output = u"%s" % (
