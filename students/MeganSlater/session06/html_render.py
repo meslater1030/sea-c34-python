@@ -3,12 +3,15 @@ class Element(object):
     tag_name = "html"
 
     def __init__(self, text="", **kwargs):
-        self.text = text
+        if text == "":
+            self.text = ""
+        else:
+            self.text = self.indent + text + "\n"
         self.attribute_string = " ".join([" " + key + "='" + value + "'"
                                          for key, value in kwargs.iteritems()])
         self.output = [u"%s<%s%s>\n"
                        % (self.indent, self.tag_name, self.attribute_string),
-                       self.text + "\n",
+                       self.text,
                        u"%s</%s>\n" % (self.indent, self.tag_name)]
 
     def append(self, tag):
@@ -20,11 +23,11 @@ class Element(object):
 
     def render(self, file_out):
         self.file_out = file_out
-        new_list = [item for inner_list in self.output for item in inner_list]
-        new_list_2 = [item for inner_list in new_list for item in inner_list]
-        new_list_3 = [item for inner_list in new_list_2 for item in inner_list]
-        new_list_3 = "".join(new_list_3)
-        self.file_out.write(new_list_3)
+        flat_list = [item for inner_list in self.output for item in inner_list]
+        flat_list2 = [item for inner_list in flat_list for item in inner_list]
+        flat_list3 = [item for inner_list in flat_list2 for item in inner_list]
+        flat_list3 = "".join(flat_list3)
+        self.file_out.write(flat_list3)
 
 
 class OneLineTag(Element):
@@ -69,7 +72,7 @@ class H(OneLineTag):
                                       self.num)]
 
 
-class P(OneLineTag):
+class P(Element):
     tag_name = "p"
     indent = "        "
 
@@ -109,7 +112,7 @@ class Li(OneLineTag):
         self.tag = tag
         try:
             self.text = self.text + self.tag
-            self.output = [u"<%s%s>%s</%s>\n" % (self.tag_name,
+            self.output = [u"%s<%s%s>%s</%s>\n" % (self.indent, self.tag_name,
                            self.attribute_string, self.text, self.tag_name)]
         except:
             self.text = self.text + self.tag.output
