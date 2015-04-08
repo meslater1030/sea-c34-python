@@ -1,6 +1,6 @@
 class Element(object):
     indent = "    "
-    tag_name = "html"
+    tag_name = ""
 
     def __init__(self, text="", **kwargs):
         if text == "":
@@ -19,7 +19,7 @@ class Element(object):
         try:
             self.output.insert(-1, self.tag.output)
         except:
-            self.output.insert(-1, self.tag + "\n")
+            self.output.insert(-1, self.indent + self.tag + "\n")
 
     def render(self, file_out):
         self.file_out = file_out
@@ -43,11 +43,14 @@ class SelfClosingTag(Element):
     def __init__(self, **kwargs):
         self.attribute_string = " ".join([" " + key + "='" + value + "'"
                                          for key, value in kwargs.iteritems()])
-        self.output = [u'%s<%s%s/>\n' % (self.indent,
-                                         self.tag_name, self.attribute_string)]
+        self.output = [u'%s<%s%s />\n' % (
+                                       self.indent,
+                                       self.tag_name, self.attribute_string)]
 
 
 class Html(Element):
+    tag_name = "html"
+
     def __init__(self):
         self.output = [u"<!DOCTYPE html>\n", u"<" + self.tag_name + ">\n",
                        u"</" + self.tag_name + ">\n"]
@@ -76,6 +79,15 @@ class P(Element):
     tag_name = "p"
     indent = "        "
 
+    def __init__(self, text="", **kwargs):
+        self.text = self.indent + text + "\n"
+        self.attribute_string = " ".join([" " + key + "='" + value + "'"
+                                         for key, value in kwargs.iteritems()])
+        self.output = [u"%s<%s%s>\n"
+                       % (self.indent, self.tag_name, self.attribute_string),
+                       "    " + self.text,
+                       u"%s</%s>\n" % (self.indent, self.tag_name)]
+
 
 class Title(OneLineTag):
     tag_name = "title"
@@ -93,10 +105,13 @@ class Hr(SelfClosingTag):
 
 
 class A(Element):
+    indent = "            "
+
     def __init__(self, url, text):
         self.url = url
         self.text = text
-        self.output = u'<a href="%s">%s</a> ' % (self.url, self.text)
+        self.output = u'<a href="%s">%s</a> ' % (
+            self.url, self.text)
 
 
 class Ul(Element):
@@ -112,9 +127,10 @@ class Li(OneLineTag):
         self.tag = tag
         try:
             self.text = self.text + self.tag
-            self.output = [u"%s<%s%s>%s</%s>\n" % (self.indent, self.tag_name,
-                           self.attribute_string, self.text, self.tag_name)]
+            self.output = u"%s<%s>%s</%s>\n" % (
+                self.indent, self.tag_name, self.text,
+                self.tag_name)
         except:
             self.text = self.text + self.tag.output
-            self.output = [u"%s<%s%s>%s</%s>\n" % (self.indent, self.tag_name,
-                           self.attribute_string, self.text, self.tag_name)]
+            self.output = u"%s" % (
+                           self.text)
