@@ -217,4 +217,4 @@ body.append(list)
 
 page.append(body)
 
-# render(page, u"test_html_output8.html")
+render(page, u"test_html_output8.html")

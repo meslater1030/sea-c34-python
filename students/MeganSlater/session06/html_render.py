@@ -19,7 +19,7 @@ class Element(object):
         try:
             self.output.insert(-1, self.tag.output)
         except:
-            self.output.insert(-1, self.tag)
+            self.output.insert(-1, self.tag + "\n")
 
     def render(self, file_out):
         self.file_out = file_out
