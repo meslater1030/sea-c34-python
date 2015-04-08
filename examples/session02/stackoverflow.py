@@ -1,13 +1,27 @@
+"""x = 0
+
+
 def runneth_over():
-<<<<<<< HEAD
-<<<<<<< HEAD
+    global x
+    x = x + 1
+    print(x)
     runneth_over()
-runneth_over()
-=======
-	runneth_over()
-runneth_over()
->>>>>>> b511bec3360be46e9dffa894cee2ea43fe693bfc
-=======
-	runneth_over()
-runneth_over()
->>>>>>> task6
+
+runneth_over()"""
+
+
+from __future__ import print_function
+
+
+def fizz_buzz():
+    for x in range(0, 100):
+        if (x % 3 == 0) and (x % 5 != 0):
+            print(u"Fizz")
+        elif (x % 5 == 0) and (x % 3 != 0):
+            print(u"Buzz")
+        elif (x % 3 == 0) and (x % 5 == 0):
+            print(u"FizzBuzz")
+        else:
+            print(x)
+
+fizz_buzz()

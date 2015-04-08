@@ -2,11 +2,20 @@
 
 
 def listAddition():
+<<<<<<< HEAD
     """ 
     Concatenate two lists containing different object types
         Args: n/a
 
         Returns: n/a
+=======
+    """ Concatenate two lists containing different object types
+
+    Args: 
+
+    Returns: 
+
+>>>>>>> eb1fcc6df394b5f849118de20c85ffd597e14653
     """
     x = [1,2, 3]
     y = ['b', 'a', 'y']
@@ -18,12 +27,20 @@ listAddition()
 #Q2: Can an index be concatenated with a slice?
 
 def printString():
+<<<<<<< HEAD
     """ 
     Concatenate the index and slice of a string and print results
 
         Args: n/a
 
         Returns: n/a
+=======
+    """ Concatenates the index and slice of a string and print results
+
+    Args:
+
+    Returns:
+>>>>>>> eb1fcc6df394b5f849118de20c85ffd597e14653
 
     """
     s = "This is a string of letters"
@@ -36,12 +53,20 @@ printString()
 
 def duckTyping():
 
+<<<<<<< HEAD
     """ 
     Create classes Cow and Person containing the methods moo and chew
 
         Args: n/a
 
         Returns: n/a
+=======
+    """ Create classes Cow and Person containing the methods moo and chew
+
+    Args:
+
+    Returns:
+>>>>>>> eb1fcc6df394b5f849118de20c85ffd597e14653
 
     """
 
