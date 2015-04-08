@@ -19,7 +19,7 @@ class Element(object):
         try:
             self.output.insert(-1, self.tag.output)
         except:
-            self.output.insert(-1, self.indent + self.tag + "\n")
+            self.output.insert(-1, self.tag)
 
     def render(self, file_out):
         self.file_out = file_out
@@ -96,8 +96,6 @@ class Hr(SelfClosingTag):
 
 
 class A(Element):
-    indent = "            "
-
     def __init__(self, url, text):
         self.url = url
         self.text = text
