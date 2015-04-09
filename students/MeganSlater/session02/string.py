@@ -12,12 +12,12 @@ def startA(str):
 
 """Is a user entered value a number?"""
 
-
+"""
 def isNum(userInput):
     return userInput.isalnum()  # returns true if input is a number
 isNum(raw_input("Enter a number: "))
 
-"""Can a computer do mad libs?"""
+Can a computer do mad libs?
 
 
 def madLibs():
@@ -26,3 +26,4 @@ def madLibs():
     adj = raw_input("Enter an adjective: ")
     print('"There are too many %s %s on this %s plane!" he screamed.' % (verb, noun, adj))
 madLibs()
+"""

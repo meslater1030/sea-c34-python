@@ -1,12 +1,11 @@
 """Can I look up keys in dictionaries by their values?"""
 
 
-def dict_by_value():
-    d = {"key1": 3, "key2": 5, "key3": 5}
+def dict_by_value(d, lookup):
     # loop through the dictionary to find the key(s) for stated value
     for key, value in d.iteritems():
-        if value == 5:
-            print key
+        if value == lookup:
+            return key
 
 """Can I unfreeze a set?"""
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+"""
 # section 1
 fruits = ['Apples', 'Pears', 'Oranges', 'Peaches']
 print(fruits)
@@ -13,11 +13,15 @@ fruits = ["Grapes"] + fruits
 print(fruits)
 fruits.insert(0, "Tomatos")
 print(fruits)
-for fruit in fruits:  # Check the first letter of every fruit to see if it's P
-    if fruit[0] == "P":
-        print fruit
-seriesonefruit = fruits[:]  # Make a copy of this fruits list for further use
+"""
 
+
+def p_fruits(fruits):
+    for fruit in fruits:  # Check the first letter of every fruit for P
+        if fruit[0] == "P":
+            return fruit
+"""
+seriesonefruit = fruits[:]  # Make a copy of this fruits list for further use
 # section 2
 sectiontwofruits = seriesonefruit[:]  # Make a copy for this section
 print(sectiontwofruits)
@@ -37,12 +41,13 @@ for fruit in sectionthreefruits:  # move every item in this list to lowercase
 # recursive function checks for valid user input
 
 
-def goodfruits():
-    likedfruits = []
+def goodfruits(fruits):
+    likedfruits = fruits
     for fruit in sectionthreefruits:
         userlike = ""
         while userlike != 'no' and userlike != 'yes':
-            userlike = raw_input("Do you like " + fruit + "? (yes/no) ").lower()
+            userlike = raw_input("Do you like " + fruit +
+                                 "? (yes/no) ").lower()
             if userlike == "yes":
                 likedfruits = likedfruits + [fruit]
             elif userlike != 'no' and userlike != 'yes':
@@ -64,3 +69,4 @@ for fruit in backwardsfruits:  # re-spells every fruit backwards
 sectionfourfruits.pop()
 print(sectionfourfruits)
 print(backwardsfruits)
+"""
